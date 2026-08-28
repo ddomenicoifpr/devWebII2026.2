@@ -1,3 +1,39 @@
+<?php
+
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+include_once("persistencia.php");
+
+//Buscar os livros já cadastros do arquivo JSON
+$livros = buscarDados("livros.json");
+//echo "<pre>" . print_r($livros, true) . "</pre>";
+
+//Verificar se o usuário já enviou o formulário
+if(isset($_POST["titulo"])) {
+    //Capturar os dados do formulário
+    $titulo = $_POST["titulo"];
+    $genero = $_POST["genero"];
+    $nroPag = $_POST["qtd_paginas"];
+
+    //Salvar os dados do livro no arquivo JSON
+    $livro = array(
+        "id" => uniqid(),
+        "titulo" => $titulo,
+        "genero" => $genero,
+        "qtd_paginas" => $nroPag
+    );
+    array_push($livros, $livro);
+
+    salvarDados($livros, "livros.json");
+
+    header("location: livros.php");
+}
+
+
+
+?>
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -43,6 +79,30 @@
         <th>Quant. Páginas</th>
         <th>Excluir</th>
     </tr>
+
+    <?php foreach($livros as $l): ?>
+
+        <tr>
+            <td><?php echo $l["id"] ?></td>
+            <td><?php echo $l["titulo"] ?></td>
+            <td><?php 
+                if($l["genero"] == "D")
+                    echo "Drama";
+                else if($l["genero"] == "F")
+                    echo "Ficção";
+                else if($l["genero"] == "R")
+                    echo "Romance";
+                else if($l["genero"] == "O")
+                    echo "Outro";
+            ?></td>
+
+            <td><?php echo $l["qtd_paginas"] ?></td>
+            <td>
+                <a href="livros_excluir.php?id=<?php echo $l["id"] ?>">Excluir</a>
+            </td>
+        </tr>
+
+    <?php endforeach; ?>
 
 </table>
 
