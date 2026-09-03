@@ -98,7 +98,8 @@ if(isset($_POST["titulo"])) {
 
             <td><?php echo $l["qtd_paginas"] ?></td>
             <td>
-                <a href="livros_excluir.php?id=<?php echo $l["id"] ?>">Excluir</a>
+                <a href="livros_excluir.php?id=<?php echo $l["id"] ?>"
+                    onclick="return confirm('Confirma a exclusão?');">Excluir</a>
             </td>
         </tr>
 
