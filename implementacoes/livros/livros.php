@@ -10,25 +10,49 @@ include_once("persistencia.php");
 $livros = buscarDados("livros.json");
 //echo "<pre>" . print_r($livros, true) . "</pre>";
 
+$msgErro = "";
+
 //Verificar se o usuário já enviou o formulário
 if(isset($_POST["titulo"])) {
     //Capturar os dados do formulário
     $titulo = $_POST["titulo"];
+    $autor  = $_POST["autor"];
     $genero = $_POST["genero"];
     $nroPag = $_POST["qtd_paginas"];
 
-    //Salvar os dados do livro no arquivo JSON
-    $livro = array(
-        "id" => uniqid(),
-        "titulo" => $titulo,
-        "genero" => $genero,
-        "qtd_paginas" => $nroPag
-    );
-    array_push($livros, $livro);
+    //Validação dos dados
+    $erros = array();
+    if(trim($titulo) == "") {
+        array_push($erros, "Informe o título!");
+    }
+    if(trim($autor) == "") {
+        array_push($erros, "Informe o autor!");
+    }
+    if(trim($genero) == "") {
+        array_push($erros, "Informe o gênero!");
+    }
+    if(trim($nroPag) == "") {
+        array_push($erros, "Informe o número de páginas!");
+    }
 
-    salvarDados($livros, "livros.json");
+    if(count($erros) == 0) {
+        //Salvar os dados do livro no arquivo JSON
+        $livro = array(
+            "id" => uniqid(),
+            "titulo" => $titulo,
+            "autor"  => $autor,
+            "genero" => $genero,
+            "qtd_paginas" => $nroPag
+        );
+        array_push($livros, $livro);
 
-    header("location: livros.php");
+        salvarDados($livros, "livros.json");
+
+        header("location: livros.php");
+    } else {
+        //print_r($erros);
+        $msgErro = implode("<br>" , $erros);
+    }
 }
 
 
@@ -47,11 +71,18 @@ if(isset($_POST["titulo"])) {
 <h1>Cadastro de livros</h1>
 
 <h3>Cadastre seu livro aqui</h3>
+
+<!--form method="POST" action="" onsubmit="return validar();" -->
 <form method="POST" action="" >
     <input type="text" name="titulo" id="titulo" 
-        placeholder="Informe o título"  />
+        placeholder="Informe o título" />
     
-    <br><br> 
+    <br><br>
+
+    <input type="text" name="autor" id="autor" 
+        placeholder="Informe o autor"  />
+    
+    <br><br>
 
     <select name="genero" id="genero">
         <option value="">--Selecione o gênero--</option>
@@ -69,12 +100,17 @@ if(isset($_POST["titulo"])) {
     <input type="submit" value="Enviar" />
 </form>
 
+<div id="divErro" style="color: red;">
+   <?= $msgErro ?> 
+</div>
+
 <h3>Livros cadastrados</h3>
 
 <table border="1">
     <tr>
         <th>ID</th>
         <th>Título</th>
+        <th>Autor</th>
         <th>Gênero</th>
         <th>Quant. Páginas</th>
         <th>Excluir</th>
@@ -85,6 +121,7 @@ if(isset($_POST["titulo"])) {
         <tr>
             <td><?php echo $l["id"] ?></td>
             <td><?php echo $l["titulo"] ?></td>
+            <td><?= $l["autor"] ?></td>
             <td><?php 
                 if($l["genero"] == "D")
                     echo "Drama";
@@ -106,6 +143,8 @@ if(isset($_POST["titulo"])) {
     <?php endforeach; ?>
 
 </table>
+
+<script src="validacao.js"></script>
 
 </body>
 </html>
