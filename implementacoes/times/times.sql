@@ -1,0 +1,9 @@
+CREATE TABLE times ( 
+	id INTEGER NOT NULL AUTO_INCREMENT, 
+	nome VARCHAR(50) NOT NULL, 
+	cidade VARCHAR(50) NOT NULL, 
+	CONSTRAINT pk_times PRIMARY KEY (id)
+);
+
+INSERT INTO times (nome, cidade) VALUES ('Grêmio', 'Porto Alegre');
+INSERT INTO times (nome, cidade) VALUES ('Chapecoense', 'Chapecó');
