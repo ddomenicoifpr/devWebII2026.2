@@ -12,6 +12,14 @@ class Aluno {
     private ?Curso $curso;
 
     //Métodos
+    public function getEstrangeiroDesc() {
+        if($this->estrangeiro == 'S')
+            return "Sim";
+        else if($this->estrangeiro == 'N')
+            return "Não";
+
+        return "Inválido";
+    }
 
     //GETs e SETs
     public function getId(): ?int

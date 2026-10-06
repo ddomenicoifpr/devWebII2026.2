@@ -8,6 +8,20 @@ class Curso {
     private ?string $turno;
 
     //Métodos
+    public function __toString() {
+        return $this->nome . " (" . $this->getTurnoDesc() . ")";
+    }
+
+    public function getTurnoDesc() {
+        if($this->turno == "M")
+            return "Matutino";
+        else if($this->turno == "V")
+            return "Vespertino";
+        else if($this->turno == "N")
+            return "Noturno";
+        
+        return "Inválido";
+    }
 
     //GETs e SETs
     public function getId(): ?int

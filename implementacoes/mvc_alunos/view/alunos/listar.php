@@ -12,7 +12,7 @@ include_once(__DIR__ . "/../../controller/AlunoController.php");
 //Carregar a lista de alunos
 $alunoCont = new AlunoController();
 $alunos = $alunoCont->listar();
-print_r($alunos);
+//print_r($alunos);
 
 
 //Incluir o cabeçalho da aplicação
@@ -21,6 +21,8 @@ include_once(__DIR__ . "/../include/header.php");
 
 
 <h3>Listagem de alunos</h3>
+
+<a href="inserir.php">Inserir</a>
 
 <table>
     <!-- Cabeçalho -->
@@ -32,8 +34,16 @@ include_once(__DIR__ . "/../include/header.php");
         <th>Curso</th>
     </tr>
 
-
     <!-- Dados -->
+    <?php foreach($alunos as $a): ?>
+        <tr>
+            <td><?= $a->getId() ?></td>
+            <td><?= $a->getNome() ?></td>
+            <td><?= $a->getIdade() ?></td>
+            <td><?= $a->getEstrangeiroDesc() ?></td>
+            <td><?= $a->getCurso() //Executar o método toString() ?></td>
+        </tr>
+    <?php endforeach; ?>
 </table>
 
 <?php
