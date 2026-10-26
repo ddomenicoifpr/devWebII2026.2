@@ -1,6 +1,10 @@
 <?php
 
 include_once(__DIR__ . "/../../model/Aluno.php");
+include_once(__DIR__ . "/../../controller/AlunoController.php");
+
+$msgErro = "";
+$aluno = NULL;
 
 //Capturar os dados do formulário
 if(isset($_POST['nome'])) {
@@ -18,7 +22,14 @@ if(isset($_POST['nome'])) {
     $curso->setId($idCurso);
     $aluno->setCurso($curso);
 
-    print_r($aluno);
+    $alunoCont = new AlunoController();
+    $erros = $alunoCont->inserir($aluno);
+
+    if(empty($erros)) {
+        header("location: listar.php");
+        exit;
+    } else
+        $msgErro = implode("<br>", $erros);
 }
 
 

@@ -23,6 +23,38 @@ class AlunoDAO {
         return $alunos;
     }
 
+    public function inserir(Aluno $aluno) {
+        $sql = "INSERT INTO alunos (nome, idade, estrangeiro, id_curso)
+                VALUES (?, ?, ?, ?)";
+        
+        try {
+            $conn = Connection::getConnection();
+            $stmt = $conn->prepare($sql);
+            $stmt->execute(array($aluno->getNome(),
+                                $aluno->getIdade(),
+                                $aluno->getEstrangeiro(),
+                                $aluno->getCurso()->getId()));
+        } catch(PDOException $e) {
+            return "Erro ao inserir o aluno! " . $e->getMessage();
+        }
+
+        return "";
+    }
+
+    public function excluir(int $idAluno) {
+        $sql = "DELETE FROM alunos WHERE id = ?";
+        
+        try {
+            $conn = Connection::getConnection();
+            $stmt = $conn->prepare($sql);
+            $stmt->execute(array($idAluno));
+        } catch(PDOException $e) {
+            return "Erro ao excluir o aluno! " . $e->getMessage();
+        }
+
+        return "";
+    }
+
     public function map(array $dados) {
         $alunos = array();
 

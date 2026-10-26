@@ -20,21 +20,27 @@ include_once(__DIR__ . "/../include/header.php");
     <div>
         <label for="nome">Nome:</label>
         <input type="text" id="nome" 
-            name="nome" placeholder="Informe o nome">
+            name="nome" placeholder="Informe o nome"
+            value="<?= $aluno ? $aluno->getNome() : '' ?>">
     </div>
 
     <div>
         <label for="idade">Idade:</label>
         <input type="number" id="idade" 
-            name="idade" placeholder="Informe a idade">
+            name="idade" placeholder="Informe a idade"
+            value="<?= $aluno ? $aluno->getIdade() : '' ?>">
     </div>
 
     <div>
         <label for="estrang">Estrangeiro:</label>
         <select name="estrang" id="estrang">
             <option value="">---Selecione---</option>
-            <option value="S">Sim</option>
-            <option value="N">Não</option>
+            <option value="S"
+                <?= $aluno && $aluno->getEstrangeiro() == 'S' ? "selected" : "" ?> >
+                Sim</option>
+            <option value="N"
+                <?= $aluno && $aluno->getEstrangeiro() == 'N' ? "selected" : "" ?> >
+                Não</option>
         </select>
     </div>
 
@@ -45,7 +51,13 @@ include_once(__DIR__ . "/../include/header.php");
 
             <!-- Opções geradas de forma dinâmica -->
             <?php foreach($cursos as $c): ?>
-                <option value="<?= $c->getId() ?>"><?= $c ?></option>
+                <option value="<?= $c->getId() ?>" 
+                
+                    <?php if($aluno && $aluno->getCurso()->getId() == $c->getId() )
+                            echo "selected";    
+                    ?>
+                
+                ><?= $c ?></option>
             <?php endforeach; ?>
         </select>
     </div>
@@ -55,6 +67,10 @@ include_once(__DIR__ . "/../include/header.php");
     </div>
 
 </form>
+
+<div>
+    <?= $msgErro ?>
+</div>
 
 <a href="listar.php">Voltar</a>
 
