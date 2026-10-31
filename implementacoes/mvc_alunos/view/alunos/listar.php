@@ -22,9 +22,9 @@ include_once(__DIR__ . "/../include/header.php");
 
 <h3>Listagem de alunos</h3>
 
-<a href="inserir.php">Inserir</a>
+<a href="inserir.php" class="btn btn-primary">Inserir</a>
 
-<table>
+<table class="table table-striped table-bordered">
     <!-- Cabeçalho -->
     <tr>
         <th>ID</th>

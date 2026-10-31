@@ -19,6 +19,10 @@ class AlunoController {
         return $this->alunoDAO->listar();
     }
 
+    public function buscarPorId(int $id): ?Aluno {
+        return $this->alunoDAO->buscarPorId($id);
+    }
+
     public function inserir(Aluno $aluno) {
         //1- Validar os dados
         $erros = $this->alunoService->validar($aluno);
@@ -26,6 +30,20 @@ class AlunoController {
         if(empty($erros)) {
             //2- Persistir o objeto (salvar no banco de dados)
             $msgErro = $this->alunoDAO->inserir($aluno);
+            if($msgErro)
+                array_push($erros, $msgErro);
+        }
+
+        return $erros;
+    }
+
+    public function alterar(Aluno $aluno) {
+        //1- Validar os dados
+        $erros = $this->alunoService->validar($aluno);
+
+        if(empty($erros)) {
+            //2- Persistir o objeto (salvar no banco de dados)
+            $msgErro = $this->alunoDAO->alterar($aluno);
             if($msgErro)
                 array_push($erros, $msgErro);
         }

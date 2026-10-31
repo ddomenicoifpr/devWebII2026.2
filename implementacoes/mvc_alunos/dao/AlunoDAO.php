@@ -44,7 +44,7 @@ class AlunoDAO {
         elseif(count($alunos) == 0)
             return null;
 
-        die("AlunoDAO.findById - Erro: mais de um aluno".
+        die("AlunoDAO.buscarPorId - Erro: mais de um aluno".
                 " encontrado para o ID " . $id);
     }
 
@@ -122,3 +122,4 @@ class AlunoDAO {
     }
 
 }
+
