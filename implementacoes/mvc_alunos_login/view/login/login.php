@@ -36,7 +36,7 @@ include_once(__DIR__ . "/../include/header.php");
     </div>
 
     <div class="row">
-        <div class="col-6 alert alert-warning">
+        <div class="col-6 alert alert-primary">
             <form name="frmLogin" method="POST">
                 
                 <div>

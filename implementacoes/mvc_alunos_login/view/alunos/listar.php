@@ -1,4 +1,6 @@
-<?php 
+<?php
+//Validar se o usuário está logado
+include_once(__DIR__ . "/../login/validar.php"); 
 
 //Testar a conexão
 /*
@@ -17,6 +19,7 @@ $alunos = $alunoCont->listar();
 
 //Incluir o cabeçalho da aplicação
 include_once(__DIR__ . "/../include/header.php");
+include_once(__DIR__ . "/../include/menu.php");
 ?>
 
 

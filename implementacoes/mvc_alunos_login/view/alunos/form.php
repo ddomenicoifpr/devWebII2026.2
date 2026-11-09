@@ -11,6 +11,7 @@ $cursos = $cursoCont->listar();
 
 //Incluir o cabeçalho da aplicação
 include_once(__DIR__ . "/../include/header.php");
+include_once(__DIR__ . "/../include/menu.php");
 ?>
 
 <h3><?= $aluno && $aluno->getId() > 0 ? "Alterar" : "Inserir" ?> aluno</h3>

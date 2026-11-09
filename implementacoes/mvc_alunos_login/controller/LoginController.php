@@ -19,11 +19,27 @@ class LoginController {
 
         //Validar as credencias (login e senha) na tabela "usuarios"
         if(empty($erros)) {
-            //TODO - Realizar o login na aplicação utilizando o recurso de sessões
+            //Validar as credencias (login e a senha)
+            $usuario = $this->usuarioDao->findByLoginSenha($login, $senha);
+            if($usuario) {
+                //Realizar o login na aplicação utilizando o recurso de sessões
+                $this->loginService->salvarUsuarioSessao($usuario);
+
+            } else {
+                array_push($erros, "Login ou senha inválidos!");
+            }
         }
         
         
         return $erros;
+    }
+
+    public function usuarioEstaLogado() {
+        return $this->loginService->usuarioEstaLogado();
+    }
+
+    public function deslogar() {
+        $this->loginService->removerUsuarioSessao();
     }
 
 }

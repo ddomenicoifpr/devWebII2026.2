@@ -17,4 +17,25 @@ class LoginService {
         return $erros;
     }
 
+    public function salvarUsuarioSessao(Usuario $usuario) {
+        session_start();
+        $_SESSION[USU_LOGADO_ID]   = $usuario->getId();
+        $_SESSION[USU_LOGADO_NOME] = $usuario->getNome();
+    }
+
+    public function usuarioEstaLogado() {
+        session_start();
+        if(isset($_SESSION[USU_LOGADO_ID]))
+            return true;
+
+        return false;
+    }
+
+    public function removerUsuarioSessao() {
+        session_start();
+
+        session_unset();
+        session_destroy();
+    }
+
 }

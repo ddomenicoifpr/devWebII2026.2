@@ -1,4 +1,13 @@
 
+<footer class="bg-light text-muted mt-3">
+    <div class="text-center p-4">
+        © 2026 Copyright:
+        <a href="https://foz.ifpr.edu.br"
+        target="blank">IFPR (Campus Foz do Iguaçu)</a>
+    </div>
+</footer>
+
+
 <!-- Fecha a tag div do container aberta no arquivo header.php -->
 </div>
 
