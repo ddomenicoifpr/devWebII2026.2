@@ -7,7 +7,7 @@ use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Factory\AppFactory;
 
-//use App\Controller\ClubeController;
+use App\Controller\ClubeController;
 use Slim\Exception\HttpNotFoundException;
 
 require_once(__DIR__ . '/vendor/autoload.php');
@@ -24,6 +24,34 @@ $app->get('/', function (Request $request, Response $response, $args) {
     $response->getBody()->write("Funcionou!");
     return $response;
 });
+
+// /futebol_api/ola/Daniel
+$app->get("/ola/{nome}", function(Request $request, Response $response, $args) {
+    $nome = $args["nome"];
+
+    $response->getBody()->write("Olá mundo!");
+    $response->getBody()->write("<br>Seja bem vindo " . $nome);
+    return $response;
+} );
+
+// futebol_api/ola2?nome=Daniel
+$app->get("/ola2", function(Request $request, Response $response, $args) {
+    $parametros = $request->getQueryParams();
+
+    $nome = "";
+    if(isset($parametros['nome']))
+        $nome = $parametros['nome'];
+
+    if($nome)
+        $response->getBody()->write("Obrigado pelo acesso " . $nome);
+    else
+        $response->getBody()->write("Obrigado pelo acesso");
+    
+    return $response;
+});
+
+//CLUBES
+$app->get("/clubes", ClubeController::class . ":listar");
 
 //Tratamento para rota não encontrada
 $app->map(['GET', 'POST', 'PUT', 'DELETE', 'PATCH'], '/{routes:.+}', function ($request, $response) {
