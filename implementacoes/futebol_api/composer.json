@@ -4,6 +4,7 @@
         "slim/psr7": "1.6.1"
     },
 
+    
     "autoload": {
         "psr-4": {"App\\": "./app"}
     }
